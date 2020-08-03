@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 import Search from './Search';
+import Airports from './Airports';
 
 class Map extends Component {
     constructor(props) {
         super(props);
         this.updateDestinations = this.updateDestinations.bind(this);
+        this.updateAirports = this.updateAirports.bind(this);
     };
 
     state = {
@@ -21,6 +23,9 @@ class Map extends Component {
             desc: ""
         },
 
+        startAirport: {},
+        endAirport: {},
+
     };
 
     updateDestinations(startCity, endCity) {
@@ -28,6 +33,16 @@ class Map extends Component {
             startDestination: startCity,
             endDestination: endCity,
         });
+    };
+
+    updateAirports(startAirport, endAirport) {
+        this.setState({
+            startAirport: startAirport,
+            endAirport: endAirport,
+        });
+
+        console.log(this.state.startAirport);
+        console.log(this.state.endAirport);
     };
 
     render() {
@@ -67,7 +82,8 @@ class Map extends Component {
                 }
             </LeafletMap>
 
-            <Search updateDestinations={this.updateDestinations}/>
+            <Search updateDestinations={this.updateDestinations} updateAirports={this.updateAirports}/>
+            
             </React.Fragment>
         );
     };
