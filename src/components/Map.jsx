@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 import Search from './Search';
-import Airports from './Airports';
+import Dates from './Dates';
 
+// Note: I am using rapidapi.com as it has all the apis I need and it requires a single key to use them all.
 class Map extends Component {
     constructor(props) {
         super(props);
         this.updateDestinations = this.updateDestinations.bind(this);
         this.updateAirports = this.updateAirports.bind(this);
+        this.updateDates = this.updateDates.bind(this);
     };
 
     state = {
@@ -25,6 +27,9 @@ class Map extends Component {
 
         startAirport: {},
         endAirport: {},
+        
+        startDate: {},
+        endDate: {},
 
     };
 
@@ -44,6 +49,13 @@ class Map extends Component {
         console.log(this.state.startAirport);
         console.log(this.state.endAirport);
     };
+
+    updateDates(startDate, endDate) {
+        this.setState({
+            startDate: startDate,
+            endDate: endDate,
+        });
+    }
 
     render() {
         return (
@@ -83,6 +95,7 @@ class Map extends Component {
             </LeafletMap>
 
             <Search updateDestinations={this.updateDestinations} updateAirports={this.updateAirports}/>
+            <Dates updateDates={this.updateDates}/>
             
             </React.Fragment>
         );
