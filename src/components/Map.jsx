@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 import Search from './Search';
 import Dates from './Dates';
+import Flights from './Flights';
 
 // Note: I am using rapidapi.com as it has all the apis I need and it requires a single key to use them all.
 class Map extends Component {
@@ -16,20 +17,24 @@ class Map extends Component {
         startDestination: {
             long: 0,
             lat: 0,
-            desc: ""
+            desc: "",
+            city: "",
+            country: "",
         },
 
         endDestination: {
             long: 0,
             lat: 0,
-            desc: ""
+            desc: "",
+            city: "",
+            country: "",
         },
 
-        startAirport: {},
-        endAirport: {},
+        startAirports: [],
+        endAirports: [],
         
-        startDate: {},
-        endDate: {},
+        startDate: "",
+        endDate: "",
 
     };
 
@@ -38,16 +43,19 @@ class Map extends Component {
             startDestination: startCity,
             endDestination: endCity,
         });
+
+        console.log(this.state.startDestination);
+        console.log(this.state.endDestination);
     };
 
-    updateAirports(startAirport, endAirport) {
+    updateAirports(startAirports, endAirports) {
         this.setState({
-            startAirport: startAirport,
-            endAirport: endAirport,
+            startAirports: startAirports,
+            endAirports: endAirports,
         });
 
-        console.log(this.state.startAirport);
-        console.log(this.state.endAirport);
+        console.log(this.state.startAirports);
+        console.log(this.state.endAirports);
     };
 
     updateDates(startDate, endDate) {
@@ -94,8 +102,13 @@ class Map extends Component {
                 }
             </LeafletMap>
 
+            {/* Left sidebar */}
             <Search updateDestinations={this.updateDestinations} updateAirports={this.updateAirports}/>
             <Dates updateDates={this.updateDates}/>
+
+            {/* Right sidebar */}
+            <Flights startDate={this.state.startDate} endDate={this.state.endDate} 
+                        startAirports={this.state.startAirports} endAirports={this.state.endAirports} />
             
             </React.Fragment>
         );

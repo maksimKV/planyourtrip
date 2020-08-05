@@ -6,13 +6,15 @@ class Search extends Component {
         this.searchForCity = this.searchForCity.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.searchForAirports = this.searchForAirports.bind(this);
+        this.filterAirports = this.filterAirports.bind(this);
     };
 
     state = {
         startDestinations: [],
         endDestinations: [],
-        startAirport: {},
-        endAirport: {},
+
+        startAirports: [],
+        endAirports: [],
     };
 
     handleSubmit(event) {
@@ -21,16 +23,23 @@ class Search extends Component {
         let startCity = this.state.startDestinations.find(c => c.display_name === event.target[0].value);
         let endCity = this.state.endDestinations.find(c => c.display_name === event.target[1].value);
 
+        let startCityParts = startCity.display_name.split(',');
+        let endCityParts = endCity.display_name.split(',');
+
         let startDestination = {
             long: startCity.lon,
             lat: startCity.lat,
             desc: "You are travelling from " + startCity.display_name,
+            city: startCityParts[0],
+            country: startCityParts[startCityParts.length - 1],
         };
 
         let endDestination = {
             long: endCity.lon,
             lat: endCity.lat,
             desc: "You are travelling to " + endCity.display_name,
+            city: endCityParts[0],
+            country: endCityParts[endCityParts.length - 1],
         };
 
         this.searchForAirports(startDestination, endDestination);
@@ -87,46 +96,66 @@ class Search extends Component {
 
     searchForAirports(startDestination, endDestination)
     {
-        fetch("https://ourairport-data-search.p.rapidapi.com/nearest/" + startDestination.lat + "," + startDestination.long + "?maxResults=1", {
+        fetch("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/en-GB/?query=" + startDestination.city, {
             "method": "GET",
             "headers": {
-                "x-rapidapi-host": "ourairport-data-search.p.rapidapi.com",
+                "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
                 "x-rapidapi-key": process.env.REACT_APP_AIRPORTS_KEY
             }
-        }).then(res => res.json())
+        })
+        .then(res => res.json())
         .then((result) => {
-            this.setState({
-                startAirport: result
-                });
-            })
-        .catch((err) => {
-            this.setState({
-                error: err,
-                startAirport: {}
-                });   
-        });
-        
-        fetch("https://ourairport-data-search.p.rapidapi.com/nearest/" + endDestination.lat + "," + endDestination.long + "?maxResults=1", {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-host": "ourairport-data-search.p.rapidapi.com",
-                "x-rapidapi-key": process.env.REACT_APP_AIRPORTS_KEY
-            }
-        }).then(res => res.json())
-        .then((result) => {
-            this.setState({
-                endAirport: result
-                });
+                let filteredAirports = this.filterAirports(result["Places"], startDestination);
 
-                this.props.updateAirports(this.state.startAirport, this.state.endAirport);
+                this.setState({
+                    startAirports: filteredAirports
+                }); 
             })
         .catch((err) => {
             this.setState({
                 error: err,
-                endAirport: {}
-                });   
+                startAirports: [],
+            });
+        });
+
+        fetch("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/en-GB/?query=" + endDestination.city, {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+                "x-rapidapi-key": process.env.REACT_APP_AIRPORTS_KEY
+            }
+        })
+        .then(res => res.json())
+        .then((result) => {
+                let filteredAirports = this.filterAirports(result["Places"], endDestination);
+
+                this.setState({
+                    endAirports: filteredAirports
+                });
+                
+                this.props.updateAirports(this.state.startAirports, this.state.endAirports);
+            })
+        .catch((err) => {
+            this.setState({
+                error: err,
+                endAirports: [],
+            });
         });
     };
+
+    filterAirports(allAirports, destination) {
+        let airports = [];
+
+        for(let key in allAirports)
+        {
+            if(allAirports[key]["CountryName"].trim() === destination.country.trim())
+            {
+                airports.push(allAirports[key]);
+            }
+        }
+
+        return airports;
+    }
 
     render() {
         return(
