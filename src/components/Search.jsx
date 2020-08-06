@@ -109,7 +109,10 @@ class Search extends Component {
 
                 this.setState({
                     startAirports: filteredAirports
-                }); 
+                    },
+                    
+                    this.props.updateAirports(this.state.startAirports, this.state.endAirports),
+                ); 
             })
         .catch((err) => {
             this.setState({
@@ -131,9 +134,10 @@ class Search extends Component {
 
                 this.setState({
                     endAirports: filteredAirports
-                });
-                
-                this.props.updateAirports(this.state.startAirports, this.state.endAirports);
+                    },
+
+                    this.props.updateAirports(this.state.startAirports, this.state.endAirports),
+                );
             })
         .catch((err) => {
             this.setState({

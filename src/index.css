@@ -124,3 +124,24 @@ code {
 .halfAirportsContainer h4 {
   margin-bottom: 2px;
 }
+
+.inboundOutboundWrapper {
+  margin-left: 5px;
+  margin-right: 5px;
+
+  height: 200px;
+  overflow: auto;
+}
+
+.inboundOutboundWrapper table th, td {
+  text-align: left;
+  font-size: 14px;
+}
+
+.inboundOutboundWrapper table {
+  width: 600px;
+}
+
+.inboundOutboundWrapper h4 {
+  margin-bottom: 5px;
+}

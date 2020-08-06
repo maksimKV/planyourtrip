@@ -43,9 +43,6 @@ class Map extends Component {
             startDestination: startCity,
             endDestination: endCity,
         });
-
-        console.log(this.state.startDestination);
-        console.log(this.state.endDestination);
     };
 
     updateAirports(startAirports, endAirports) {
@@ -53,9 +50,6 @@ class Map extends Component {
             startAirports: startAirports,
             endAirports: endAirports,
         });
-
-        console.log(this.state.startAirports);
-        console.log(this.state.endAirports);
     };
 
     updateDates(startDate, endDate) {
