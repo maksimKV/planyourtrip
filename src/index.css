@@ -53,7 +53,7 @@ code {
 }
 
 .datePicker {
-  top: 240px;
+  top: 250px;
   left: 60px;
 
   z-index: 400;
@@ -144,4 +144,15 @@ code {
 
 .inboundOutboundWrapper h4 {
   margin-bottom: 5px;
+}
+
+.validationError {
+  margin: 0px;
+  text-align: center;
+  color: red;
+  font-size: 12px;
+}
+
+.validationPass {
+  display: none;
 }
