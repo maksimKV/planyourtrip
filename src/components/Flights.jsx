@@ -35,18 +35,24 @@ class Flights extends Component {
     };
 
     componentDidUpdate() {
-        if(this.state.startAirports !== this.props.startAirports && this.props.startAirports.length > 0
-            && this.state.endAirports !== this.props.endAirports && this.props.endAirports.length > 0)
+        if(this.state.startAirports !== this.props.startAirports && this.props.startAirports.length > 0)
         {
             this.setState({
                 startAirports: this.props.startAirports,
-                endAirports: this.props.endAirports,
-
                 startAirport: this.props.startAirports[0],
-                endAirport: this.props.endAirports[0],
                 },
 
-                this.getFligths(),
+                this.getFligths,
+            );
+        };
+
+        if(this.state.endAirports !== this.props.endAirports && this.props.endAirports.length > 0) {
+            this.setState({
+                endAirports: this.props.endAirports,
+                endAirport: this.props.endAirports[0],
+            },
+
+                this.getFligths,
             );
         };
 
@@ -55,7 +61,7 @@ class Flights extends Component {
                 startDate: this.formatDate(this.props.startDate),
                 },
 
-                this.getFligths(),
+                this.getFligths,
             );
         };
 
@@ -64,7 +70,7 @@ class Flights extends Component {
                 endDate: this.formatDate(this.props.endDate),
                 }, 
 
-                this.getFligths(),
+                this.getFligths,
             );
         }
     }
@@ -128,7 +134,7 @@ class Flights extends Component {
             startAirport: airport,
             },
             
-            this.getFligths(),
+            this.getFligths,
         );
     }
 
@@ -139,7 +145,7 @@ class Flights extends Component {
             endAirport: airport,
             },
 
-            this.getFligths(),
+            this.getFligths,
         );
     }
 

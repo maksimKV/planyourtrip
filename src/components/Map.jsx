@@ -9,7 +9,8 @@ class Map extends Component {
     constructor(props) {
         super(props);
         this.updateDestinations = this.updateDestinations.bind(this);
-        this.updateAirports = this.updateAirports.bind(this);
+        this.updateStartAirports = this.updateStartAirports.bind(this);
+        this.updateEndAirports = this.updateEndAirports.bind(this);
         this.updateDates = this.updateDates.bind(this);
     };
 
@@ -45,9 +46,14 @@ class Map extends Component {
         });
     };
 
-    updateAirports(startAirports, endAirports) {
+    updateStartAirports(startAirports) {
         this.setState({
             startAirports: startAirports,
+        });
+    }
+
+    updateEndAirports(endAirports) {
+        this.setState({
             endAirports: endAirports,
         });
     };
@@ -97,7 +103,8 @@ class Map extends Component {
             </LeafletMap>
 
             {/* Left sidebar */}
-            <Search updateDestinations={this.updateDestinations} updateAirports={this.updateAirports}/>
+            <Search updateDestinations={this.updateDestinations} updateStartAirports={this.updateStartAirports} 
+                updateEndAirports={this.updateEndAirports}/>
             <Dates updateDates={this.updateDates}/>
 
             {/* Right sidebar */}

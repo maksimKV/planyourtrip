@@ -12,9 +12,6 @@ class Search extends Component {
     state = {
         startDestinations: [],
         endDestinations: [],
-
-        startAirports: [],
-        endAirports: [],
     };
 
     handleSubmit(event) {
@@ -107,17 +104,11 @@ class Search extends Component {
         .then((result) => {
                 let filteredAirports = this.filterAirports(result["Places"], startDestination);
 
-                this.setState({
-                    startAirports: filteredAirports
-                    },
-                    
-                    this.props.updateAirports(this.state.startAirports, this.state.endAirports),
-                ); 
+                this.props.updateStartAirports(filteredAirports); 
             })
         .catch((err) => {
             this.setState({
                 error: err,
-                startAirports: [],
             });
         });
 
@@ -132,17 +123,11 @@ class Search extends Component {
         .then((result) => {
                 let filteredAirports = this.filterAirports(result["Places"], endDestination);
 
-                this.setState({
-                    endAirports: filteredAirports
-                    },
-
-                    this.props.updateAirports(this.state.startAirports, this.state.endAirports),
-                );
+                this.props.updateEndAirports(filteredAirports);
             })
         .catch((err) => {
             this.setState({
                 error: err,
-                endAirports: [],
             });
         });
     };
