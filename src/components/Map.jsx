@@ -6,6 +6,8 @@ import Flights from './Flights';
 import Hotels from './Hotels';
 
 // Note: I am using rapidapi.com as it has all the apis I need and it requires a single key to use them all.
+// Note: I am using Skyscanner Flight Search API for the flights information. Found at: https://rapidapi.com/skyscanner/api/skyscanner-flight-search/details
+// Note: I am using Htoels API for the hotels and landmarks information. Found at: https://rapidapi.com/apidojo/api/hotels4/details
 class Map extends Component {
     constructor(props) {
         super(props);
@@ -111,8 +113,9 @@ class Map extends Component {
             {/* Right sidebar */}
             <Flights startDate={this.state.startDate} endDate={this.state.endDate} 
                         startAirports={this.state.startAirports} endAirports={this.state.endAirports} />
+                        { /*
             <Hotels startDate={this.state.startDate} endDate={this.state.endDate} 
-                city={this.state.endDestination.city}/>
+                city={this.state.endDestination.city}/> */}
             
             </React.Fragment>
         );

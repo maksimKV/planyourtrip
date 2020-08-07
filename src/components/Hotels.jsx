@@ -185,7 +185,21 @@ class Hotels extends Component {
 
     render(){
         return(
-            <h2>Hotels</h2>
+            <div className="locationsWrapper">
+            <h2>Hotels & Landmarks</h2>
+                <div className="locationsInner">
+                    <h3>Hotels</h3>
+                        {this.state.hotelDetails.length <= 0 ? "" : 
+                            <ul className="hotelsList">
+                                {this.state.hotels.map(hotel => {
+                                    return (
+                                        <li className="hotelThumbnail">{this.state.hotelPhotos.find(photo => photo.destinationId === hotel.destinationId)}</li>
+                                    )
+                                })}
+                            </ul>
+                        }
+                </div>
+            </div>
         );
     };
 };
