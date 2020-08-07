@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {formatDate} from '../utils/FormatDate';
 
 class Flights extends Component {
     constructor(props) {
@@ -7,7 +8,6 @@ class Flights extends Component {
         this.handleStartAirport = this.handleStartAirport.bind(this);
         this.handleEndAirport = this.handleEndAirport.bind(this);
         this.filterFlights = this.filterFlights.bind(this);
-        this.formatDate = this.formatDate.bind(this);
     };
 
     state = {
@@ -56,18 +56,18 @@ class Flights extends Component {
             );
         };
 
-        if(this.state.startDate !== this.formatDate(this.props.startDate) && this.props.startDate !== "") {
+        if(this.state.startDate !== formatDate(this.props.startDate) && this.props.startDate !== "") {
             this.setState({
-                startDate: this.formatDate(this.props.startDate),
+                startDate: formatDate(this.props.startDate),
                 },
 
                 this.getFligths,
             );
         };
 
-        if(this.state.endDate !== this.formatDate(this.props.endDate) && this.props.endDate !== "") {
+        if(this.state.endDate !== formatDate(this.props.endDate) && this.props.endDate !== "") {
             this.setState({
-                endDate: this.formatDate(this.props.endDate),
+                endDate: formatDate(this.props.endDate),
                 }, 
 
                 this.getFligths,
@@ -167,23 +167,6 @@ class Flights extends Component {
 
         return filteredFlights;
     };
-
-    formatDate(date) {
-        let d = new Date(date);
-        let month = '' + (d.getMonth() + 1);
-        let day = '' + d.getDate();
-        let year = d.getFullYear();
-    
-        if (month.length < 2) {
-            month = '0' + month;
-        }
-           
-        if (day.length < 2)  {
-            day = '0' + day;
-        }
-
-        return [year, month, day].join('-');
-    }
 
     render() {
         return (

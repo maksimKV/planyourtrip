@@ -3,6 +3,7 @@ import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 import Search from './Search';
 import Dates from './Dates';
 import Flights from './Flights';
+import Hotels from './Hotels';
 
 // Note: I am using rapidapi.com as it has all the apis I need and it requires a single key to use them all.
 class Map extends Component {
@@ -110,6 +111,8 @@ class Map extends Component {
             {/* Right sidebar */}
             <Flights startDate={this.state.startDate} endDate={this.state.endDate} 
                         startAirports={this.state.startAirports} endAirports={this.state.endAirports} />
+            <Hotels startDate={this.state.startDate} endDate={this.state.endDate} 
+                city={this.state.endDestination.city}/>
             
             </React.Fragment>
         );
