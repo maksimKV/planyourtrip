@@ -113,9 +113,8 @@ class Map extends Component {
             {/* Right sidebar */}
             <Flights startDate={this.state.startDate} endDate={this.state.endDate} 
                         startAirports={this.state.startAirports} endAirports={this.state.endAirports} />
-                        { /*
             <Hotels startDate={this.state.startDate} endDate={this.state.endDate} 
-                city={this.state.endDestination.city}/> */}
+                city={this.state.endDestination.city}/>
             
             </React.Fragment>
         );
